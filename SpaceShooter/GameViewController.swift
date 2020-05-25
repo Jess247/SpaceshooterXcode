@@ -15,36 +15,23 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+        // Scene soll den der groesse des jeweiligen views des geraetes entspechen
+        let scene1 = Mainmenue(size: self.view.bounds.size)//Full screen
+        let skView = self.view as! SKView // User view wird als skview gesetzt
+        
+        // FPS anzeigen (framerate)
+        skView.showsFPS = true
+        // Nodes anzeigen
+        skView.showsNodeCount = true
+        
+        // ShowPyhsics
+        skView.showsPhysics = true
+        
+        //performance zur einfolge beim rendern
+        skView.ignoresSiblingOrder = true
+        // Spielinhalt anzeigen
+        skView.presentScene(scene1)
     }
 
-    override var shouldAutorotate: Bool {
-        return true
-    }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
 }
